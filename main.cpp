@@ -1,8 +1,8 @@
 /* 
 Authors: Seif Yahia - Mohamed Amgad - Omar Elgammal
 Program Name: Bitmap Filters
-Last Modification Date: 31 March 2022
-Version: 1.0
+Last Modification Date: 2 April 2022
+Version: 1.1
 */
 
 #include <iostream>
@@ -17,6 +17,7 @@ unsigned char image[SIZE][SIZE];
 
 void loadImage ();
 void saveImage ();
+void mergeImage();
 
 int main()
 {
@@ -59,4 +60,31 @@ void saveImage()
     strcat(imageFileName, ".bmp");
     // Write contents of the bitmap into a new file
     writeGSBMP(imageFileName, image);
+}
+
+// Merge filter to merge two photos together
+void mergeImage()
+{
+    char imageToMerge[100];
+    unsigned char mergedImage[SIZE][SIZE];
+    unsigned char first, second;
+    // Get the file name to merge with the original image
+    cout << "Please enter image file name to merge with: ";
+    cin >> imageToMerge;
+    // Concatenate the extention of bitmap with file name
+    strcat(imageToMerge, ".bmp");
+    // Read contents of the bitmap into a 2D array/matrix
+    readGSBMP(imageToMerge, mergedImage);
+    for(int i = 0; i < SIZE; ++i)
+    {
+        for(int j = 0; j < SIZE; ++j)
+        {
+            first = image[i][j];
+            second = mergedImage[i][j];
+            // Gets the mean between the values of pixels
+            // of the original and the image to merge
+            image[i][j] = (first + second) / 2;
+        }
+    }
+    cout << "Two images merged successfully!\n";
 }
