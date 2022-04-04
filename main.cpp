@@ -24,6 +24,9 @@ void mergeImage();
 void darkenLighten();
 void invertImage();
 void rotateImage();
+void black_white();
+void horizontal_flip();
+void vertical_flip();
 
 int main()
 {
@@ -194,6 +197,69 @@ void rotateImage()
         }
 
         nRotations--;
+    }
+}
+//convert image into black and white image
+void black_white()
+{
+    long avg = 0;
+    //iterate on each pixel to collect the sum of pixels values
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+
+            avg += image[i][j];
+
+        }
+    }
+    //get average of values of pixels
+    avg /= (SIZE*SIZE);
+    //turn image into black and white
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            //pixel that has value greater than avg turn into white
+            if (image[i][j] > avg)
+            {
+                image[i][j] = 255;
+            }
+            //pixel that has value greater than avg turn into black
+            else
+            {
+                image[i][j] = 0;
+            }
+        }
+    }
+
+}
+// flip image horizontally
+void horizontal_flip()
+{
+    //iterate on half number of pixels and swap them horizontally
+    for(int i=0;i<SIZE/2;++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            swap(image[i][j],image[(SIZE - 1) - i][j]);
+            
+        }
+        
+    }
+}
+// flip image vertically
+void vertical_flip()
+{
+    //iterate on half number of pixels and swap them vertically
+    for(int i=0;i<SIZE;++i)
+    {
+        for (int j = 0; j < SIZE/2; ++j)
+        {
+            swap(image[i][j],image[i][(SIZE - 1) - j]);
+            
+        }
+        
     }
 }
 
