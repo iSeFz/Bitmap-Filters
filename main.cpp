@@ -72,6 +72,7 @@ int main(){
             save_image();
         }
         else if(choice == "0"){
+            save_image();
             break;
         }
         else{
