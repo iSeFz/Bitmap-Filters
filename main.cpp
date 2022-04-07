@@ -1,16 +1,17 @@
 /*
-FCI – Programming 1 – 2022 - Assignment 3 - Part 1
+FCAI – Programming 1 – 2022 - Assignment 3 - Part 1
 Group: S13
 Author1 and ID: Seif Yahia - 20210172
 Author2 and ID: Mohamed Amgad - 20210330
 Author3 and ID: Omar Elgammal - 20210271
 Program Name: Bitmap Filters
-Last Modification Date: 6 April 2022
-Version: 1.7
+Last Modification Date: 7 April 2022
+Version: 1.8
 */
 
 // Including necessary libraries
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <string>
 #include <cmath>
@@ -33,7 +34,7 @@ void flip_image();
 
 // Main function to start the program
 int main(){
-    string choice;
+    string choice, decision;
     cout << "Welcome to the bitmap filters program!\n";
 
     // Import the image from user to work on
@@ -72,8 +73,14 @@ int main(){
             save_image();
         }
         else if(choice == "0"){
-            save_image();
-            break;
+            cout << "Do you want to save? (y/n) ";
+            cin >> decision;
+            if(decision == "y"){
+                save_image();
+            }
+            else if(decision == "n"){
+                break;
+            }
         }
         else{
             cout << "INVALID INPUT!!\n";
