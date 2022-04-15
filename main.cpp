@@ -32,6 +32,7 @@ void flip_image();
 void darken_lighten();
 void rotate_image();
 void shrink_image();
+void image_enlarge();
 
 // Main function to start the program
 int main(){
@@ -45,7 +46,9 @@ int main(){
     cout << "The program can apply the following filters to bitmap grayscale images:\n"
             "1. Black & White\n2. Invert Image\n"
             "3. Merge Two Images\n4. Flip Image\n"
-            "5. Darken or Lighten Image\n6. Rotate Image\n"
+            "5. Darken or Lighten Image\n"
+            "6. Rotate Image\n"
+            "8. Enlarge Image\n"
             "9. Shrink Image\n"
             "s. Save Image to a new file\n0. Exit\n";
 
@@ -70,6 +73,9 @@ int main(){
         }
         else if(choice == "6"){
             rotate_image();
+        }
+        else if(choice == "8"){
+            image_enlarge();
         }
         else if(choice == "9"){
             shrink_image();
@@ -295,6 +301,78 @@ void rotate_image(){
     }
     cout << "Image rotated by " << input << " successfully!\n";
 }
+
+// Enlarge filter to enlarge any quarter of the images
+void image_enlarge(){
+
+    // initializing temporary image array
+    unsigned char temp[SIZE][SIZE];
+
+    // Copying original image to temporary array
+    for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
+                temp[i][j] = image[i][j];
+            }
+        }
+
+    // Initializing user input variables
+    string input;
+    int correct = 0;
+
+    // Loop that takes input from user 
+    // and sets up the iterator variables accordinng to user's choice
+    int i_start, i_end, j_start, j_end;
+    while(!correct){
+        cout << "Please choose which quarter you would like to enlarge (1, 2, 3, 4):";
+        cin >> input;
+        
+        if (input == "1"){
+            i_start = 0, i_end = 128, 
+            j_start = 0,  j_end = 128;
+        }
+        else if (input == "2"){
+            i_start = 0, i_end = 128, 
+            j_start = 128,  j_end = 256;
+        }
+        else if (input == "3"){
+            i_start = 128, i_end = 256, 
+            j_start = 0,  j_end = 128;
+        }
+        else if (input == "4"){
+            i_start = 128, i_end = 256, 
+            j_start = 128,  j_end = 256;
+        }
+        else{
+            cout << "Invalid input! Please enter a number from 1 to 4.\n";
+            continue;
+        }
+        correct++;
+    }
+    
+    // Copying the quarter from the temporary image to the original image but enlarged
+    for(int i=0, i_quarter = i_start; i < SIZE; i += 2, i_quarter++){
+        for(int j=0, j_quarter = j_start; j < SIZE; j += 2, j_quarter++){
+            image[i][j] = image[i + 1][j] = image[i][j + 1] 
+            = image[i + 1][j + 1] = temp[i_quarter][j_quarter];
+        }
+    }
+
+    cout << "Image enlarged successfully!\n";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // Shrink filter to shrink image to 1/2, 1/3 or 1/4
 void shrink_image(){
