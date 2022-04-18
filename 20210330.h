@@ -62,3 +62,41 @@ void flip_image(){
         flip_image();
     }
 }
+// Filter #a
+// Mirrior image left or right or up or down
+void mirror()
+{
+    
+    string choice = "";
+    cout << "Do you want to Mirror (l)eft, (r)ight, (u)pper, (d)own side?";
+    cin >> choice;
+    // iterate on each pixel
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            if (choice == "r")
+            {
+                // make right side equal to left
+                image[i][(SIZE - 1) - j] = image[i][j];
+            }
+            else if (choice == "l")
+            {
+                // make left side equal to right
+                image[i][j] = image[i][(SIZE - 1) - j];
+            }
+            else if (choice == "u")
+            {
+                // make upper side equal to lower side
+                image[i][j] = image[(SIZE - 1) - i][j];
+            }
+            else if (choice == "d")
+            {
+                // make lower side equal to upper side
+                image[(SIZE - 1) - i][j] = image[i][j];
+            }
+
+        }
+    }
+    cout << "Mirror filter applied to the image successfully!\n";
+}

@@ -41,7 +41,7 @@ int main(){
             "1. Black & White\n2. Invert Image\n"
             "3. Merge Two Images\n4. Flip Image\n"
             "5. Darken or Lighten Image\n6. Rotate Image\n"
-            "8. Enlarge Image\n9. Shrink Image\n"
+            "8. Enlarge Image\n9. Shrink Image\n10. Mirror Image\n"
             "s. Save Image to a new file\n0. Exit\n";
 
     // Check the input of the user and reject bad inputs
@@ -71,6 +71,10 @@ int main(){
         }
         else if(choice == "9"){
             shrink_image();
+        }
+        else if (choice == "10")
+        {
+            mirror();
         }
         else if(choice == "s"){
             save_image();
