@@ -5,8 +5,8 @@ Author1 and ID: Seif Yahia - 20210172
 Author2 and ID: Mohamed Amgad - 20210330
 Author3 and ID: Omar Elgammal - 20210271
 Program Name: Bitmap Filters
-Last Modification Date: 17 April 2022
-Version: 2.3
+Last Modification Date: 19 April 2022
+Version: 3.0
 */
 
 // Including necessary libraries
@@ -38,11 +38,13 @@ int main(){
 
     // Output the menu to the user
     cout << "The program can apply the following filters to bitmap grayscale images:\n"
-            "1. Black & White\n2. Invert Image\n"
-            "3. Merge Two Images\n4. Flip Image\n"
-            "5. Darken or Lighten Image\n6. Rotate Image\n"
-            "8. Enlarge Image\n9. Shrink Image\n10. Mirror Image\n"
-            "s. Save Image to a new file\n0. Exit\n";
+            "1. Black & White\t\t2. Invert Image\n"
+            "3. Merge Two Images\t\t4. Flip Image\n"
+            "5. Darken or Lighten Image\t6. Rotate Image\n"
+            "7. Detect Image Edges\t\t8. Enlarge Image\n"
+            "9. Shrink Image\t\t\ta. Mirror 1/2 Image\n"
+            "b. Shuffle Image\t\tc. Blur Image\n"
+            "s. Save Image to a new file\t0. Exit\n";
 
     // Check the input of the user and reject bad inputs
     while(choice != "0"){
@@ -67,7 +69,6 @@ int main(){
             rotate_image();
         }
         else if(choice == "7"){
-            // blur function
             edge_detector();
         }
         else if(choice == "8"){
@@ -76,9 +77,14 @@ int main(){
         else if(choice == "9"){
             shrink_image();
         }
-        else if (choice == "10")
-        {
-            mirror();
+        else if(choice == "a"){
+            mirror_image();
+        }
+        else if(choice == "b"){
+            shuffle_image();
+        }
+        else if(choice == "c"){
+            blur_image();
         }
         else if(choice == "s"){
             save_image();
