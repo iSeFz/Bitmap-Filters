@@ -62,6 +62,54 @@ void flip_image(){
         flip_image();
     }
 }
+// Filter #7
+// Edge dector filter
+void edge_detector() {
+    int Gx, Gy, avg;
+    double threshold = 0.0;
+    // x_mask to calculate varition in x_axis
+    int kernal_x[3][3] = { {-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1} };
+    // y_mask to calculat varition in y_axis
+    int kernal_y[3][3] = { {-1, -2, -1}, {0, 0, 0}, {1, 2, 1} };
+    for (int i = 1, k = 0; i < SIZE - 1 && k < SIZE - 2; i++, k++) {
+        for (int j = 1, l = 0; j < SIZE - 1 && l < SIZE - 2; j++, l++) {
+            // calculate varition in x with respect to each pixel
+            Gx = image[i][j] * kernal_x[1][1] + image[i][j - 1] * kernal_x[1][0] +
+                image[i][j + 1] * kernal_x[1][2] +
+                image[i - 1][j - 1] * kernal_x[0][0] +
+                image[i - 1][j] * kernal_x[0][1] +
+                image[i - 1][j + 1] * kernal_x[0][2] +
+                image[i + 1][j - 1] * kernal_x[2][0] +
+                image[i + 1][j] * kernal_x[2][1] +
+                image[i + 1][j + 1] * kernal_x[2][2];
+            // calculate varition in y with respect to each pixel
+            Gy = image[i][j] * kernal_y[1][1] + image[i][j - 1] * kernal_y[1][0] +
+                image[i][j + 1] * kernal_y[1][2] +
+                image[i - 1][j - 1] * kernal_y[0][0] +
+                image[i - 1][j] * kernal_y[0][1] +
+                image[i - 1][j + 1] * kernal_y[0][2] +
+                image[i + 1][j - 1] * kernal_y[2][0] +
+                image[i + 1][j] * kernal_y[2][1] +
+                image[i + 1][j + 1] * kernal_y[2][2];
+            threshold += lround(sqrt(Gx * Gx + Gy * Gy));
+            result[k][l] = lround(sqrt(Gx * Gx + Gy * Gy));
+        }
+    }
+    // calculate average
+    avg = lround(threshold / (SIZE * SIZE));
+    for (int i = 0; i < SIZE - 1; i++) {
+        for (int j = 0; j < SIZE - 1; j++) {
+            // turn pixel to black if it is greater than avg
+            if (result[i][j] > avg) {
+                result[i][j] = 0;
+            }
+            // turn pixel to white if it is smaller than or equal avg
+            else {
+                result[i][j] = 255;
+            }
+        }
+    }
+}
 // Filter #a
 // Mirrior image left or right or up or down
 void mirror()

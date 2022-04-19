@@ -66,6 +66,10 @@ int main(){
         else if(choice == "6"){
             rotate_image();
         }
+        else if(choice == "7"){
+            // blur function
+            edge_detector();
+        }
         else if(choice == "8"){
             enlarge_image();
         }
