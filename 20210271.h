@@ -1,9 +1,6 @@
-/*
-Author: Omar Elgammal - 20210271
-*/
+// Author: Omar Elgammal - 20210271
 
-// Filter #2
-// Function that inverts image colour
+// Filter #2 - Function that inverts image colour
 void invert_image(){
     // Iterates on each pixel and inverts its color
     for(int i = 0; i < SIZE; ++i){
@@ -14,8 +11,7 @@ void invert_image(){
     cout << "Invert filter was applied successfully!\n";
 }
 
-// Filter #6
-// Function that rotates image anticlockwise
+// Filter #6 - Function that rotates image anticlockwise
 void rotate_image(){
 
     // Initializing empty array to use for rotation
@@ -65,8 +61,7 @@ void rotate_image(){
     cout << "Image rotated by " << input << " successfully!\n";
 }
 
-// Filter #8
-// Enlarge filter to enlarge any quarter of the images
+// Filter #8 - Enlarge filter to enlarge any quarter of the images
 void enlarge_image(){
 
     // initializing temporary image array
@@ -87,7 +82,7 @@ void enlarge_image(){
     // and sets up the iterator variables accordinng to user's choice
     int i_str_temp, j_str_temp;
     while(!correct){
-        cout << "Please choose which quarter you would like to enlarge (1, 2, 3, 4):";
+        cout << "Please choose which quarter you would like to enlarge (1, 2, 3, 4): ";
         cin >> input;
         
         if (input == "1"){
@@ -124,8 +119,7 @@ void enlarge_image(){
     cout << "Image enlarged successfully!\n";
 }
 
-// Filter #b
-// Function that shuffles image quraters according to the user's input
+// Filter #b - Function that shuffles image quraters according to the user's input
 void shuffle_image(){
 
     // initializing temporary image array
@@ -146,7 +140,7 @@ void shuffle_image(){
     // and checks if input is correct
     int i_str_temp, j_str_temp, i_str_original, j_str_original;
     while(!correct){
-        cout << "Please enter the order of quarters in the new image\n(4 space separated numbers from 1 to 4):";
+        cout << "Please enter the order of quarters in the new image\n(4 space separated numbers from 1 to 4): ";
         for (int i = 0; i < 4; i++){
             cin >> input[i];
         }    
@@ -160,7 +154,7 @@ void shuffle_image(){
         
         
         if(!correct){
-            cout << "Invalid input! Input example:4 2 1 3\n";
+            cout << "Invalid input! Input example: 4 2 1 3\n";
         }
     }
 
