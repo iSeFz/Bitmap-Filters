@@ -7,6 +7,9 @@ const int RGB = 3;
 // Declaring a global 2D array for image
 unsigned char image[SIZE][SIZE];
 
+// Declaring a global 3D array for image
+unsigned char imageRGB[SIZE][SIZE][RGB];
+
 // read full-color image from the file specified by filename, into inputImage
 int readRGBBMP(const char* filename, unsigned char inputImage[][SIZE][RGB]);
 
