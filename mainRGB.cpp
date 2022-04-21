@@ -26,9 +26,11 @@ using namespace std;
 void loadImage();
 void saveImage();
 
+// Declare some variables
+string choice, decision,place;
+
 // Main function to start the program
 int main(){
-    string choice, decision;
     cout << "Welcome to the colored bitmap filters program!\n";
 
     // Import the image from user to work on
@@ -48,7 +50,10 @@ int main(){
     while(choice != "0"){
         cout << "Choose one of the above filters to apply or 0 to EXIT: ";
         cin >> choice;
-        if(choice == "2"){
+        if(choice == "1"){
+            black_whiteRGB();
+        }
+        else if(choice == "2"){
             invertRGB();
         }
         else if(choice == "3"){
@@ -62,6 +67,10 @@ int main(){
         }
         else if(choice == "6"){
             rotateRGB();
+        }
+        else if (choice == "7"){
+            edge_detectorRGB();
+            place = "7";
         }
         else if(choice == "8"){
             enlargeRGB();
@@ -119,8 +128,14 @@ void saveImage(){
     cin >> imageFileName;
     // Concatenate the extention of bitmap with file name
     strcat(imageFileName, ".bmp");
-    // Write contents of the bitmap into a new file
-    writeRGBBMP(imageFileName, imageRGB);
+    if(place == "7"){
+        // Write contents of the bitmap into a new file
+        writeRGBBMP(imageFileName, result);
+    }
+    else{
+        // Write contents of the bitmap into a new file
+        writeRGBBMP(imageFileName, imageRGB);
+    }
     // Output a message to the user to confirm the saving proccess
     cout << "Image was saved successfully as \"" << imageFileName << "\"\n";
 }

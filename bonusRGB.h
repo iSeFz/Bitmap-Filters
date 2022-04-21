@@ -4,6 +4,77 @@ Seif Yahia - 20210172
 Mohamed Amgad - 20210330
 Omar Elgammal - 20210271
 */
+// Filter #1 : Function that turn image into black & white
+void black_whiteRGB()
+{
+    double avg = 0.0;
+    long r, g, b;
+
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {   // separate rgb chanels and collect each value individually
+            for (int k = 0; k < RGB; k++)
+            {
+                if (k == 0)
+                {
+                    r = imageRGB[i][j][k];
+                }
+                else if (k == 1)
+                {
+                    g = imageRGB[i][j][k];
+
+                }
+                else
+                {
+                    b = imageRGB[i][j][k];
+                }
+            }
+            // make value of rgb channels similar
+            for (int l = 0; l < RGB; l++)
+            {
+                imageRGB[i][j][l] = round(sqrt((r * 0.2989 + g * 0.5870 + b * 0.1140) / 3));
+            }
+
+        }
+    }
+    // calculate avg of pixels
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            for (int k = 0; k < RGB; k++)
+            {
+                avg += imageRGB[i][j][k];
+            }
+
+        }
+    }
+    avg = avg / (SIZE * SIZE * RGB);
+    // turn image into black and white
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            for (int k = 0; k < RGB; ++k)
+            {
+                //pixel that has value greater than avg turn into white
+                if (imageRGB[i][j][k] > avg)
+                {
+                    imageRGB[i][j][k] = 255;
+
+                }
+                //pixel that has value greater than avg turn into black
+                else
+                {
+                    imageRGB[i][j][k] = 0;
+                }
+            }
+        }
+    }
+    cout << "Image turned to black and white successfully!\n";
+
+}
 
 // Filter #2 : Function that inverts image colour
 void invertRGB(){
@@ -152,6 +223,89 @@ void rotateRGB(){
         nRotations--;
     }
     cout << "Image rotated by " << input << " successfully!\n";
+}
+
+// Filter #7 : Edge detection filter
+void edge_detectorRGB() {
+    int Gx, Gy, avg;
+    long r, g, b;
+    double threshold = 0.0;
+    int kernal_x[3][3] = { {-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1} };
+    int kernal_y[3][3] = { {-1, -2, -1}, {0, 0, 0}, {1, 2, 1} };
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            // separate rgb chanels and collect each value individually
+            for (int k = 0; k < RGB; k++)
+            {
+                if (k == 0)
+                {
+                    r = imageRGB[i][j][k];
+                }
+                else if (k == 1)
+                {
+                    g = imageRGB[i][j][k];
+
+                }
+                else
+                {
+                    b = imageRGB[i][j][k];
+                }
+            }
+            // make value of rgb channels similar
+            for (int l = 0; l < RGB; l++)
+            {
+                imageRGB[i][j][l] = round(sqrt((r * 0.2989 + g * 0.5870 + b * 0.1140) / 3));
+            }
+
+        }
+    }
+    for (int i = 1, k = 0; i < SIZE - 1 && k < SIZE - 2; i++, k++) {
+        for (int j = 1, l = 0; j < SIZE - 1 && l < SIZE - 2; j++, l++) {
+            for (int m = 0; m < RGB; m++)
+            {
+                // calculate change in x
+                Gx = imageRGB[i][j][m] * kernal_x[1][1] + imageRGB[i][j - 1][m] * kernal_x[1][0] +
+                    imageRGB[i][j + 1][m] * kernal_x[1][2] +
+                    imageRGB[i - 1][j - 1][m] * kernal_x[0][0] +
+                    imageRGB[i - 1][j][m] * kernal_x[0][1] +
+                    imageRGB[i - 1][j + 1][m] * kernal_x[0][2] +
+                    imageRGB[i + 1][j - 1][m] * kernal_x[2][0] +
+                    imageRGB[i + 1][j][m] * kernal_x[2][1] +
+                    imageRGB[i + 1][j + 1][m] * kernal_x[2][2];
+                // calculate chage in y
+                Gy = imageRGB[i][j][m] * kernal_y[1][1] + imageRGB[i][j - 1][m] * kernal_y[1][0] +
+                    imageRGB[i][j + 1][m] * kernal_y[1][2] +
+                    imageRGB[i - 1][j - 1][m] * kernal_y[0][0] +
+                    imageRGB[i - 1][j][m] * kernal_y[0][1] +
+                    imageRGB[i - 1][j + 1][m] * kernal_y[0][2] +
+                    imageRGB[i + 1][j - 1][m] * kernal_y[2][0] +
+                    imageRGB[i + 1][j][m] * kernal_y[2][1] +
+                    imageRGB[i + 1][j + 1][m] * kernal_y[2][2];
+                threshold += lround(sqrt(Gx * Gx + Gy * Gy));
+                result[k][l][m] = lround(sqrt(Gx * Gx + Gy * Gy));
+            }
+        }
+    }
+    // get average of sumition of changes in x and y
+    avg = lround(threshold / (SIZE * SIZE));
+    for (int i = 0; i < SIZE - 1; i++) {
+        for (int j = 0; j < SIZE - 1; j++) {
+            for (int m = 0; m < RGB; m++)
+            {
+                // value greater than avg turn it into black
+                if (result[i][j][m] > avg) {
+                    result[i][j][m] = 0;
+                }
+                // value smaller than avg turn it into white
+                else {
+                    result[i][j][m] = 255;
+                }
+            }
+        }
+    }
+    cout << "Edges detected successfully!\n";
 }
 
 // Filter #8 - Enlarge filter to enlarge any quarter of the images
