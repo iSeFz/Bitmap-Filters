@@ -5,8 +5,8 @@ Author1 and ID: Seif Yahia - 20210172
 Author2 and ID: Mohamed Amgad - 20210330
 Author3 and ID: Omar Elgammal - 20210271
 Program Name: Colored Bitmap Filters
-Last Modification Date: 20 April 2022
-Version: 2.3
+Last Modification Date: 22 April 2022
+Version: 2.5
 */
 
 // Including necessary libraries
@@ -26,8 +26,8 @@ using namespace std;
 void loadImage();
 void saveImage();
 
-// Declare some variables
-string choice, decision,place;
+// Declaring user input variables
+string choice, decision;
 
 // Main function to start the program
 int main(){
@@ -51,7 +51,7 @@ int main(){
         cout << "Choose one of the above filters to apply or 0 to EXIT: ";
         cin >> choice;
         if(choice == "1"){
-            black_whiteRGB();
+            blackWhiteRGB();
         }
         else if(choice == "2"){
             invertRGB();
@@ -69,8 +69,7 @@ int main(){
             rotateRGB();
         }
         else if (choice == "7"){
-            edge_detectorRGB();
-            place = "7";
+            edgeDetectRGB();
         }
         else if(choice == "8"){
             enlargeRGB();
@@ -128,14 +127,8 @@ void saveImage(){
     cin >> imageFileName;
     // Concatenate the extention of bitmap with file name
     strcat(imageFileName, ".bmp");
-    if(place == "7"){
-        // Write contents of the bitmap into a new file
-        writeRGBBMP(imageFileName, result);
-    }
-    else{
-        // Write contents of the bitmap into a new file
-        writeRGBBMP(imageFileName, imageRGB);
-    }
+    // Write contents of the bitmap into a new file
+    writeRGBBMP(imageFileName, imageRGB);
     // Output a message to the user to confirm the saving proccess
     cout << "Image was saved successfully as \"" << imageFileName << "\"\n";
 }
