@@ -144,6 +144,10 @@ void mirror_image(){
                 // make lower side equal to upper side
                 image[(SIZE - 1) - i][j] = image[i][j];
             }
+            else {
+                cout << "INVALID INPUT!! Enter ONLY l, r, u or d\n";
+                mirror_image();
+            }
         }
     }
     cout << "Mirror filter applied to the image successfully!\n";

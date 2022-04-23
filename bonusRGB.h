@@ -396,6 +396,10 @@ void mirrorRGB(){
                     // make lower side equal to upper side
                     imageRGB[(SIZE - 1) - i][j][k] = imageRGB[i][j][k];
                 }
+                else {
+                    cout << "INVALID INPUT!! Enter ONLY l, r, u or d\n";
+                    mirrorRGB();
+                }
             }
         }
     }
