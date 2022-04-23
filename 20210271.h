@@ -69,10 +69,10 @@ void enlarge_image(){
 
     // Copying original image to temporary array
     for (int i = 0; i < SIZE; i++){
-            for (int j = 0; j < SIZE; j++){
-                temp[i][j] = image[i][j];
-            }
+        for (int j = 0; j < SIZE; j++){
+            temp[i][j] = image[i][j];
         }
+    }
 
     // Initializing user input variables
     string input;
@@ -109,13 +109,12 @@ void enlarge_image(){
     }
     
     // Copying the quarter from the temporary image to the original image but enlarged
-    for(int i=0, i_quarter = i_str_temp; i < SIZE; i += 2, i_quarter++){
-        for(int j=0, j_quarter = j_str_temp; j < SIZE; j += 2, j_quarter++){
+    for(int i = 0, i_quarter = i_str_temp; i < SIZE; i += 2, i_quarter++){
+        for(int j = 0, j_quarter = j_str_temp; j < SIZE; j += 2, j_quarter++){
             image[i][j] = image[i + 1][j] = image[i][j + 1] 
             = image[i + 1][j + 1] = temp[i_quarter][j_quarter];
         }
     }
-
     cout << "Image enlarged successfully!\n";
 }
 
@@ -127,10 +126,10 @@ void shuffle_image(){
 
     // Copying original image to temporary array
     for (int i = 0; i < SIZE; i++){
-            for (int j = 0; j < SIZE; j++){
-                temp[i][j] = image[i][j];
-            }
+        for (int j = 0; j < SIZE; j++){
+            temp[i][j] = image[i][j];
         }
+    }
 
     // Initializing user input variables
     string input[4];
@@ -151,8 +150,7 @@ void shuffle_image(){
                 correct = 0;
             }
         }
-        
-        
+
         if(!correct){
             cout << "Invalid input! Input example: 4 2 1 3\n";
         }
