@@ -26,11 +26,11 @@ using namespace std;
 void loadImage();
 void saveImage();
 
-// Declaring user input variables
-string choice, decision;
-
 // Main function to start the program
 int main(){
+    // Declaring user input variables
+    string choice, decision;
+
     cout << "Welcome to the colored bitmap filters program!\n";
 
     // Import the image from user to work on
