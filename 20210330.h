@@ -117,6 +117,7 @@ void edge_detector() {
             }
         }
     }
+    cout << "Edges detected successfully!\n";
 }
 
 // Filter #a - Mirror image left or right or up or down
