@@ -61,12 +61,24 @@ void flip_image(){
 
 // Filter #7 - Detect image edges
 void edge_detector() {
-    int Gx, Gy, avg;
+    int Gx, Gy, avg , sum;
     double threshold = 0.0;
     // x_mask to calculate varition in x_axis
     int kernal_x[3][3] = { {-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1} };
     // y_mask to calculat varition in y_axis
     int kernal_y[3][3] = { {-1, -2, -1}, {0, 0, 0}, {1, 2, 1} };
+
+    // remove noise
+    for (int i = 1, k = 0; i < SIZE - 1 && k < SIZE - 2; i++, k++) {
+        for (int j = 1, l = 0; j < SIZE - 1 && l < SIZE - 2; j++, l++) {
+            sum = image[i][j] + image[i][j - 1] + image[i][j + 1] +
+                image[i - 1][j - 1] + image[i - 1][j] + image[i - 1][j + 1] +
+                image[i + 1][j - 1] + image[i + 1][j] + image[i + 1][j + 1];
+
+            image[k][l] = lround(sum / 9);
+        }
+    }
+
     for (int i = 1, k = 0; i < SIZE - 1 && k < SIZE - 2; i++, k++) {
         for (int j = 1, l = 0; j < SIZE - 1 && l < SIZE - 2; j++, l++) {
             // calculate varition in x with respect to each pixel
